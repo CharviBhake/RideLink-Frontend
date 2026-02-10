@@ -3,21 +3,44 @@ import { MapPin, Calendar, Clock, Users, DollarSign } from 'lucide-react';
 
 const AddRide = ({ onBack }) => {
   const [formData, setFormData] = useState({
-    from: '',
-    to: '',
-    date: '',
-    time: '',
-    seats: '',
-    price: ''
+    startLocation: '',
+    endLocation: '',
+    rideDate: '',
+    departureTime: '',
+    availableSeats: '',
+    pricePerSeat: ''
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    console.log('Adding ride:', formData);
-    alert('Ride added successfully! (Demo)');
+  const handleSubmit = async () => {
+    const token = localStorage.getItem('token');
+    
+    try {
+      const response = await fetch('http://localhost:8080/ride/add', {
+        method: 'PUT',
+        headers: {
+           Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+ console.log('Rides status:', response.status);
+      if (response.ok) {
+        const ride = await response.json();
+        console.log('Ride created:', ride);
+        alert('Ride added successfully!');
+        onBack(); // Go back to dashboard
+      } else {
+        const error = await response.json();
+        alert('Error: ' + (error.message || 'Failed to create ride'));
+      }
+    } catch (error) {
+      console.error('Error creating ride:', error);
+      alert('Network error. Please try again.');
+    }
   };
 
   return (
@@ -39,8 +62,8 @@ const AddRide = ({ onBack }) => {
               <MapPin className="absolute left-3 top-3 w-5 h-5 text-neutral-500" />
               <input
                 type="text"
-                name="from"
-                value={formData.from}
+                name="startLocation"
+                value={formData.startLocation}
                 onChange={handleChange}
                 className="w-full pl-10 pr-4 py-3 bg-black border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200 placeholder-neutral-600"
                 placeholder="Starting location"
@@ -54,8 +77,8 @@ const AddRide = ({ onBack }) => {
               <MapPin className="absolute left-3 top-3 w-5 h-5 text-neutral-500" />
               <input
                 type="text"
-                name="to"
-                value={formData.to}
+                name="endLocation"
+                value={formData.endLocation}
                 onChange={handleChange}
                 className="w-full pl-10 pr-4 py-3 bg-black border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200 placeholder-neutral-600"
                 placeholder="Destination"
@@ -70,8 +93,8 @@ const AddRide = ({ onBack }) => {
                 <Calendar className="absolute left-3 top-3 w-5 h-5 text-neutral-500" />
                 <input
                   type="date"
-                  name="date"
-                  value={formData.date}
+                  name="rideDate"
+                  value={formData.rideDate}
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 bg-black border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200"
                 />
@@ -84,8 +107,8 @@ const AddRide = ({ onBack }) => {
                 <Clock className="absolute left-3 top-3 w-5 h-5 text-neutral-500" />
                 <input
                   type="time"
-                  name="time"
-                  value={formData.time}
+                  name="departureTime"
+                  value={formData.departureTime}
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 bg-black border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200"
                 />
@@ -100,8 +123,8 @@ const AddRide = ({ onBack }) => {
                 <Users className="absolute left-3 top-3 w-5 h-5 text-neutral-500" />
                 <input
                   type="number"
-                  name="seats"
-                  value={formData.seats}
+                  name="availableSeats"
+                  value={formData.availableSeats}
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 bg-black border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200 placeholder-neutral-600"
                   placeholder="1-4"
@@ -117,8 +140,8 @@ const AddRide = ({ onBack }) => {
                 <DollarSign className="absolute left-3 top-3 w-5 h-5 text-neutral-500" />
                 <input
                   type="number"
-                  name="price"
-                  value={formData.price}
+                  name="pricePerSeat"
+                  value={formData.pricePerSeat}
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 bg-black border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200 placeholder-neutral-600"
                   placeholder="200"

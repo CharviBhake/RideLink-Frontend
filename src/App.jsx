@@ -29,7 +29,7 @@ export default function CarpoolAuth() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: formData.username,   // ✅ email used as username
+          email: formData.email,   // ✅ email used as username
           password: formData.password
         })
       });
@@ -63,7 +63,7 @@ export default function CarpoolAuth() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: formData.email,   // ✅ email as username
+          username: formData.username,   // ✅ email as username
           email: formData.email,
           password: formData.password
         })
@@ -161,18 +161,18 @@ export default function CarpoolAuth() {
         <div className="p-8 space-y-5">
           <div>
             <label className="block text-sm font-medium text-neutral-300 mb-2">
-              Username
+              Email
             </label>
             <div className="relative">
               <User className="absolute left-3 top-3 w-5 h-5 text-neutral-500" />
               <input
-                type="text"
-                name="username"
-                value={formData.username}
+                type="email"
+                name="email"
+                value={formData.email}
                 onChange={handleChange}
                 onKeyPress={handleKeyPress}
                 className="w-full pl-10 pr-4 py-3 bg-black border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200 placeholder-neutral-600"
-                placeholder="johndoe"
+                placeholder="you@example.com"
                 required
               />
             </div>
@@ -182,18 +182,18 @@ export default function CarpoolAuth() {
             <>
               <div>
                 <label className="block text-sm font-medium text-neutral-300 mb-2">
-                  Email Address
+                  Username
                 </label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-3 w-5 h-5 text-neutral-500" />
                   <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
+                    type="text"
+                    name="username"
+                    value={formData.username}
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
                     className="w-full pl-10 pr-4 py-3 bg-black border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200 placeholder-neutral-600"
-                    placeholder="you@example.com"
+                    placeholder="johndoe"
                     required
                   />
                 </div>

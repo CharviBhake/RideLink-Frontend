@@ -1,16 +1,118 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Car, Search, Plus, Bell, User, LogOut, Menu, X } from 'lucide-react';
 import AddRide from './AddRide';
 import SearchRide from './SearchRide';
 import UpcomingRides from './UpcomingRides';
 import Profile from './Profile';
+import Chat from './Chat';
+import {jwtDecode} from 'jwt-decode';
 
 export default function CarpoolDashboard() {
-  const [activeView, setActiveView] = useState('dashboard');
-  const [menuOpen, setMenuOpen] = useState(false);
+ const [activeView, setActiveView] = useState('dashboard');
+const [menuOpen, setMenuOpen] = useState(false);
+const [userData, setUserData] = useState(null);
+const [userStats, setUserStats] = useState(null);
+const [upcomingRides, setUpcomingRides] = useState([]);
+const [loading, setLoading] = useState(true);
+
+
+  const [selectedRideId, setSelectedRideId] = useState(null);
+  const [selectedRideInfo, setSelectedRideInfo] = useState(null);
+
+  const handleChatClick = (rideId, rideInfo) => {
+    console.log('Opening chat for ride:', rideId);
+    setSelectedRideId(rideId);
+    setSelectedRideInfo(rideInfo);
+    setActiveView('chat');
+  };
+  
+
+useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/";
+      return;
+    }
+    const decoded = jwtDecode(token);
+    console.log("Decoded user:", decoded);
+  //  setUserData(decoded);
+  }, []);
+console.log("DASHBOARD RENDERS",{loading});
+
+  useEffect(() => {
+  //  if (!userData) return; 
+    const fetchDashboardData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res=await fetch("http://localhost:8080/user/me",{
+          headers:{
+            Authorization:`Bearer ${token}`,
+          },
+        });
+        if(!res.ok) throw new Error("failed to fetch user");
+        const user=await res.json();
+        setUserData(user);
+        const response = await fetch(
+          "http://localhost:8080/ride/getList",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch rides");
+        }
+
+        const rides = await response.json();
+        setUpcomingRides(rides);
+
+      } catch (err) {
+        console.error("Error fetching dashboard data:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
+console.log("DASHBOARD RENDERS",{loading});
+  const getWelcomeMessage = () => {
+  const isNewUser = localStorage.getItem('isNewUser') === 'true';
+
+  const displayName =
+    userData?.displayName ||
+    localStorage.getItem('displayUsername') ||
+    'User';
+
+  if (isNewUser) {
+    localStorage.setItem('isNewUser', 'false');
+    return `Welcome, ${displayName}!`;
+  }
+
+  return `Welcome back, ${displayName}!`;
+};
+
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = '/';
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black">
+      {/* Navigation */}
       <nav className="bg-neutral-900 border-b border-neutral-800 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -18,9 +120,7 @@ export default function CarpoolDashboard() {
               <div className="bg-white p-2 rounded-lg mr-3">
                 <Car className="w-6 h-6 text-black" />
               </div>
-              <h1 className="text-xl font-bold text-white">
-                CarpoolShare
-              </h1>
+              <h1 className="text-xl font-bold text-white">CarpoolShare</h1>
             </div>
             
             <div className="hidden md:flex items-center space-x-4">
@@ -34,9 +134,14 @@ export default function CarpoolDashboard() {
                 <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
                   <User className="w-4 h-4 text-black" />
                 </div>
-                <span className="text-neutral-300">John Doe</span>
+                <span className="text-neutral-300">
+                  {userData?.username || localStorage.getItem('displayUsername')?.split('@')[0] }
+                </span>
               </button>
-              <button className="text-neutral-400 hover:text-white p-2 rounded-lg hover:bg-neutral-800 transition-all">
+              <button 
+                onClick={handleLogout}
+                className="text-neutral-400 hover:text-white p-2 rounded-lg hover:bg-neutral-800 transition-all"
+              >
                 <LogOut className="w-5 h-5" />
               </button>
             </div>
@@ -50,6 +155,8 @@ export default function CarpoolDashboard() {
           </div>
         </div>
       </nav>
+
+      {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden bg-neutral-900 border-b border-neutral-800 p-4">
           <div className="space-y-2">
@@ -67,7 +174,10 @@ export default function CarpoolDashboard() {
               <User className="w-5 h-5 mr-3" />
               Profile
             </button>
-            <button className="w-full text-left text-neutral-300 hover:text-white p-3 rounded-lg hover:bg-neutral-800 transition-all flex items-center">
+            <button 
+              onClick={handleLogout}
+              className="w-full text-left text-neutral-300 hover:text-white p-3 rounded-lg hover:bg-neutral-800 transition-all flex items-center"
+            >
               <LogOut className="w-5 h-5 mr-3" />
               Logout
             </button>
@@ -75,11 +185,13 @@ export default function CarpoolDashboard() {
         </div>
       )}
 
+      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {activeView === 'dashboard' && (
           <div>
-            <h2 className="text-3xl font-bold text-white mb-8">Welcome back, John!</h2>
-          
+            <h2 className="text-3xl font-bold text-white mb-8">{getWelcomeMessage()}</h2>
+            
+            {/* Action Cards */}
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               <div 
                 onClick={() => setActiveView('addRide')}
@@ -92,8 +204,9 @@ export default function CarpoolDashboard() {
                   <div className="text-neutral-600 text-sm">Offer a ride</div>
                 </div>
                 <h3 className="text-2xl font-bold text-black mb-2">Add a Ride</h3>
-                <p className="text-neutral-600">Share your journey and earn money by offering rides to others</p>
+                <p className="text-neutral-600">Share your journey and earn money</p>
               </div>
+
               <div 
                 onClick={() => setActiveView('searchRide')}
                 className="bg-neutral-900 p-8 rounded-lg border border-neutral-800 cursor-pointer hover:scale-[1.02] transition-all"
@@ -105,30 +218,48 @@ export default function CarpoolDashboard() {
                   <div className="text-neutral-400 text-sm">Find a ride</div>
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">Search for Ride</h3>
-                <p className="text-neutral-400">Find available rides to your destination and save money</p>
+                <p className="text-neutral-400">Find available rides and save money</p>
               </div>
             </div>
+
+            {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
               <div className="bg-neutral-900 p-6 rounded-lg border border-neutral-800">
                 <div className="text-neutral-400 text-sm mb-1">Total Rides</div>
-                <div className="text-3xl font-bold text-white">24</div>
+                <div className="text-3xl font-bold text-white">
+                  {userStats?.totalRides || 0}
+                </div>
               </div>
               <div className="bg-neutral-900 p-6 rounded-lg border border-neutral-800">
                 <div className="text-neutral-400 text-sm mb-1">This Month</div>
-                <div className="text-3xl font-bold text-white">8</div>
+                <div className="text-3xl font-bold text-white">
+                  {userStats?.monthlyRides || 0}
+                </div>
               </div>
               <div className="bg-neutral-900 p-6 rounded-lg border border-neutral-800">
                 <div className="text-neutral-400 text-sm mb-1">Rating</div>
-                <div className="text-3xl font-bold text-white">4.8</div>
+                <div className="text-3xl font-bold text-white">
+                  {userStats?.rating || 'N/A'}
+                </div>
               </div>
               <div className="bg-neutral-900 p-6 rounded-lg border border-neutral-800">
                 <div className="text-neutral-400 text-sm mb-1">Saved</div>
-                <div className="text-3xl font-bold text-white">₹2.4k</div>
+                <div className="text-3xl font-bold text-white">
+                  ₹{userStats?.totalSaved || 0}
+                </div>
               </div>
             </div>
-            <UpcomingRides />
+
+            {/* Upcoming Rides */}
+            <UpcomingRides 
+              rides={upcomingRides} 
+              onNavigate={setActiveView}
+              userData={userData}
+              onChatClick={handleChatClick}
+            />
           </div>
         )}
+
         {activeView === 'addRide' && (
           <AddRide onBack={() => setActiveView('dashboard')} />
         )}
@@ -137,10 +268,16 @@ export default function CarpoolDashboard() {
           <SearchRide onBack={() => setActiveView('dashboard')} />
         )}
 
-
         {activeView === 'profile' && (
           <Profile onBack={() => setActiveView('dashboard')} />
         )}
+         {activeView === 'chat' && selectedRideId && (
+        <Chat
+          rideId={selectedRideId}
+          rideInfo={selectedRideInfo}
+          onClose={() => setActiveView('dashboard')}
+        />
+      )}
       </div>
     </div>
   );
