@@ -62,7 +62,7 @@ const Profile = ({ onBack }) => {
     const token = localStorage.getItem('token');
     
     try {
-      const response = await fetch('http://localhost:8080/user', {
+      const response = await fetch('http://localhost:8080/user/update', {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
