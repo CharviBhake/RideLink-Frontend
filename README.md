@@ -91,8 +91,10 @@ npm run dev
 
 > Add screenshots by placing images in an `assets/` folder
 
-### 🏠 Dashboard
 
+### 🏠 Dashboard
+![Login](./assets/login.png)
+![Sign-up](./assets/sign-up.png)
 ![Dashboard](./assets/dashboard.png)
 
 ---
