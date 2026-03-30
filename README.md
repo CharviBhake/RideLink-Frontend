@@ -92,34 +92,29 @@ npm run dev
 > Add screenshots by placing images in an `assets/` folder
 
 
-### 🏠 Dashboard
-![Login](.src/assets/login.png)
-![Sign-up](.src/assets/sign-up.png)
-![Dashboard](.src/assets/dashboard.png)
+ 🏠 Dashboard
+![Login](src/assets/login.png)
+![Sign-up](src/assets/sign-up.png)
+![Dashboard](src/assets/dashboard.png)
 
----
 
-### 🔍 Ride Search
+🔍 Ride Search
+![AddRide](src/assets/AddRide.png)
+![Search](src/assets/BookRide.png)
 
-![Search](.src/assets/search.png)
 
----
+📜 Ride History
 
-### 📜 Ride History
+![History](.src/assets/RideHistoryDriver.png)
+![History](.src/assets/RideHistoryPassenger.png)
 
-![History](.src/assets/history.png)
+ 💬 Chat
 
----
+![Chat](.src/assets/Chat.png)
 
-### 💬 Chat
+ 👤 Profile / Upcoming Rides
 
-![Chat](.src/assets/chat.png)
-
----
-
-### 👤 Profile / Upcoming Rides
-
-![Profile](.src/assets/profile.png)
+![Profile](.src/assets/UserProfile.png)
 
 
 💡 Key Highlights
