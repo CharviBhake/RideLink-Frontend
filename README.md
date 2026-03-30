@@ -93,33 +93,33 @@ npm run dev
 
 
 ### 🏠 Dashboard
-![Login](./assets/login.png)
-![Sign-up](./assets/sign-up.png)
-![Dashboard](./assets/dashboard.png)
+![Login](.src/assets/login.png)
+![Sign-up](.src/assets/sign-up.png)
+![Dashboard](.src/assets/dashboard.png)
 
 ---
 
 ### 🔍 Ride Search
 
-![Search](./assets/search.png)
+![Search](.src/assets/search.png)
 
 ---
 
 ### 📜 Ride History
 
-![History](./assets/history.png)
+![History](.src/assets/history.png)
 
 ---
 
 ### 💬 Chat
 
-![Chat](./assets/chat.png)
+![Chat](.src/assets/chat.png)
 
 ---
 
 ### 👤 Profile / Upcoming Rides
 
-![Profile](./assets/profile.png)
+![Profile](.src/assets/profile.png)
 
 
 💡 Key Highlights
