@@ -114,10 +114,10 @@ export default function CarpoolAuth() {
               <Car className="w-7 h-7 text-black" />
             </div>
             <h1 className="text-3xl font-bold text-white">
-              CarpoolShare
+              RideLink
             </h1>
           </div>
-          <p className="text-center text-neutral-400 text-sm">Smart Carpooling System</p>
+          <p className="text-center text-neutral-400 text-sm">A Smart and Quick Carpooling System</p>
         </div>
 
         {/* Toggle Buttons */}
@@ -306,7 +306,7 @@ export default function CarpoolAuth() {
         {/* Backend Connection Status */}
         <div className="px-8 pb-4 text-center">
           <p className="text-xs text-neutral-500">
-            Backend: http://localhost:8080/public
+            
           </p>
         </div>
       </div>

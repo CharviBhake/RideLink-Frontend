@@ -10,14 +10,15 @@ const AddRide = ({ onBack }) => {
     availableSeats: '',
     pricePerSeat: ''
   });
-
+  const [loading,setLoading]=useState(false);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async () => {
     const token = localStorage.getItem('token');
-    
+    if(loading) return;
+    setLoading(true);
     try {
       const response = await fetch('http://localhost:8080/ride/add', {
         method: 'PUT',
@@ -37,9 +38,13 @@ const AddRide = ({ onBack }) => {
         const error = await response.json();
         alert('Error: ' + (error.message || 'Failed to create ride'));
       }
-    } catch (error) {
+    } 
+    catch (error) {
       console.error('Error creating ride:', error);
       alert('Network error. Please try again.');
+    }
+    finally{
+     setLoading(false); 
     }
   };
 

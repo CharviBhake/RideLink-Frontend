@@ -17,7 +17,7 @@ console.log('Chat render');
 
 useEffect(() => {
   if(!rideId) return;
-  if (stompRef.current) return; // 🔒 prevent double connect
+ // if (stompRef.current) return; // 🔒 prevent double connect
 
   const token = localStorage.getItem('token');
 
@@ -29,6 +29,7 @@ useEffect(() => {
   debug: console.log,
   onConnect: () => {
     console.log('STOMP connected ✅');
+    console.log("SUBSCRIBING TO:", `/topic/ride/${rideId}`);
     setConnected(true);
 
     client.subscribe(`/topic/ride/${rideId}`, (message) => {
@@ -47,14 +48,15 @@ useEffect(() => {
 
 client.activate();
 stompRef.current = client;
-
   return () => {
-    stompRef.current?.deactivate(); // ✅ ONLY THIS
+    console.log('cleanign up for ride',rideId);
+    stompRef.current?.deactivate(); 
     stompRef.current = null;
   };
-}, [rideId]); // 🚫 NO DEPENDENCIES
+}, [rideId]); 
 
 useEffect(()=>{
+  setMessages([]);
   const fetchHistory=async()=>{
     const token=localStorage.getItem('token');
     const res=await fetch(
@@ -75,7 +77,7 @@ useEffect(()=>{
       );
     }
   };
-  fetchHistory();
+ if(rideId) fetchHistory();
 },[rideId]);
 
   // Auto-scroll to bottom when new messages arrive
@@ -99,7 +101,7 @@ const sendMessage = () => {
      // timestamp: new Date().toISOString(),
     }),
   });
-
+   console.log("SENDING MESSAGE FOR RIDE:", rideId);
   setInputMessage('');
 };
 
