@@ -23,7 +23,7 @@ export default function CarpoolAuth() {
     if (isLogin) {
       // LOGIN
       console.log("ABOUT TO CALL LOGIN API");
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/public/login`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/public/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export default function CarpoolAuth() {
         return;
       }
       
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/public/sign-up`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/public/sign-up`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

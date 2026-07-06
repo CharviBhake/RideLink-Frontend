@@ -34,7 +34,7 @@ console.log("userdata id",userData.id);
     const token = localStorage.getItem('token');
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/booking/${ride.id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/booking/${ride.id}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -61,7 +61,7 @@ console.log("userdata id",userData.id);
     const token = localStorage.getItem('token');
   
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/booking/${ride.id}/${bookingId}/${action}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/booking/${ride.id}/${bookingId}/${action}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

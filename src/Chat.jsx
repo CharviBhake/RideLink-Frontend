@@ -22,7 +22,7 @@ useEffect(() => {
   const token = localStorage.getItem('token');
 
   const client = new Client({
-  brokerURL: process.env.REACT_APP_WS_URL,
+  brokerURL: import.meta.env.VITE_WS_URL,
   connectHeaders: {
     Authorization: `Bearer ${token}`,
   },
@@ -60,7 +60,7 @@ useEffect(()=>{
   const fetchHistory=async()=>{
     const token=localStorage.getItem('token');
     const res=await fetch(
-      `${process.env.REACT_APP_API_URL}/chat/history/${rideId}`,
+      `${import.meta.env.VITE_API_URL}/chat/history/${rideId}`,
       {
         headers:{
           Authorization:`Bearer ${token}`,

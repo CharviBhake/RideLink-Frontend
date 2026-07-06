@@ -44,7 +44,7 @@ export default function CarpoolDashboard() {
     const fetchDashboardData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/user/me`,{
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/user/me`,{
           headers:{
             Authorization:`Bearer ${token}`,
           },
@@ -54,7 +54,7 @@ export default function CarpoolDashboard() {
         setUserData(user);
         
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/ride/getList`,
+          `${import.meta.env.VITE_API_URL}/ride/getList`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -105,7 +105,7 @@ export default function CarpoolDashboard() {
   const getStats = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/user/total_trips`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/user/total_trips`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type":"application/json",
@@ -125,7 +125,7 @@ useEffect(()=>{
   const getCo2=async()=>{
     try{
       const token=localStorage.getItem("token");
-      const response=await fetch(`${process.env.REACT_APP_API_URL}/user/co2`,{
+      const response=await fetch(`${import.meta.env.VITE_API_URL}/user/co2`,{
         headers:{
           Authorization: `Bearer ${token}`,
           "Context-Type":"application/json",
@@ -145,7 +145,7 @@ useEffect(()=>{
   const getTotalRides= async()=>{
     try{
       const token=localStorage.getItem("token");
-      const response=await fetch(`${process.env.REACT_APP_API_URL}/user/total_trips`,{
+      const response=await fetch(`${import.meta.env.VITE_API_URL}/user/total_trips`,{
         headers:{
           Authorization: `Bearer ${token}`,
           "Content-Type":"application/json",
@@ -164,7 +164,7 @@ useEffect(()=>{
   const getSavings= async()=>{
     try{
       const token=localStorage.getItem("token");
-      const response=await fetch(`${process.env.REACT_APP_API_URL}/user/savings`,{
+      const response=await fetch(`${import.meta.env.VITE_API_URL}/user/savings`,{
         headers:{
           Authorization: `Bearer ${token}`,
           "Content-Type":"application/json",
