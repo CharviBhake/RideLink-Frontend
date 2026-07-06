@@ -20,7 +20,7 @@ const AddRide = ({ onBack }) => {
     if(loading) return;
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/ride/add', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/ride/add`, {
         method: 'PUT',
         headers: {
            Authorization: `Bearer ${token}`,

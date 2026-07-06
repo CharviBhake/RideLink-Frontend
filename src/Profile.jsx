@@ -15,7 +15,7 @@ const Profile = ({ onBack }) => {
       
       try {
         // Fetch user profile
-        const profileResponse = await fetch('http://localhost:8080/user/profile', {
+        const profileResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/profile`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ const Profile = ({ onBack }) => {
         }
 
         // Fetch user stats
-        const statsResponse = await fetch('http://localhost:8080/ride/stats', {
+        const statsResponse = await fetch(`${process.env.REACT_APP_API_URL}/ride/stats`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ const Profile = ({ onBack }) => {
     const token = localStorage.getItem('token');
     
     try {
-      const response = await fetch('http://localhost:8080/user/update', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/user/update`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -10,7 +10,7 @@ const BookRide = ({ ride, onClose, onSuccess }) => {
     setLoading(true);
     
     try {
-      const response = await fetch('http://localhost:8080/booking/${rideId}', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/booking/${rideId}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer${token}`,

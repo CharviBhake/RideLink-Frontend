@@ -26,7 +26,7 @@ const [tempComment, setTempComment] = useState("");
         // Fetch rides where user was driver
 
         console.log("Calling history driver api");
-        const response = await fetch('http://localhost:8080/ride/history/driver', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/ride/history/driver`, {
           headers: {
              Authorization: `Bearer ${token}`,
             "Content-Type":"application/json",
@@ -56,7 +56,7 @@ const [tempComment, setTempComment] = useState("");
       } else {
         // Fetch rides where user was passenger
         console.log("calling passengr api history")
-        const response = await fetch('http://localhost:8080/ride/history/passenger', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/ride/history/passenger`, {
           headers: {
              Authorization: `Bearer ${token}`,
             "Content-Type":"application/json",
@@ -87,7 +87,7 @@ const [tempComment, setTempComment] = useState("");
     const getSavings= async()=>{
       try{
         const token=localStorage.getItem("token");
-        const response=await fetch("http://localhost:8080/ride/savings",{
+        const response=await fetch(`${process.env.REACT_APP_API_URL}/ride/savings`,{
           headers:{
             Authorization: `Bearer ${token}`,
             "Content-Type":"application/json",
@@ -106,7 +106,7 @@ const [tempComment, setTempComment] = useState("");
     const fetchReviews=async()=>{
       try{
         const token=localStorage.getItem("token");
-        const res=await fetch("https://localhost:8080/review/my",{
+        const res=await fetch(`${process.env.REACT_APP_API_URL}/review/my`,{
           headers:{
             Authorization: `Bearer ${token}`,
             "Content-Type":"application/json",
@@ -124,7 +124,7 @@ const [tempComment, setTempComment] = useState("");
 
   const submitReview = async (rideId,rating,comment) => {
   const token = localStorage.getItem("token");
-  await fetch("http://localhost:8080/review", {
+  await fetch(`${process.env.REACT_APP_API_URL}/review`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,

@@ -72,8 +72,8 @@ export default function RideHistory() {
       };
 
       const [ridesRes, journeysRes] = await Promise.all([
-        fetch("http://localhost:8080/ride/history/driver", { headers }),
-        fetch("http://localhost:8080/ride/history/passenger", { headers }),
+        fetch(`${process.env.REACT_APP_API_URL}/ride/history/driver`, { headers }),
+        fetch(`${process.env.REACT_APP_API_URL}/ride/history/passenger`, { headers }),
       ]);
 
       console.log("Driver status:", ridesRes.status);
