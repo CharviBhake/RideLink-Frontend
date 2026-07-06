@@ -9,6 +9,9 @@ const RideHistory = ({ onBack }) => {
   const [savings,setSavings] =useState(null);
   const [myReviews,setMyReviews]=useState({});
   const [reviewd,setReviewd] =useState({});
+  const [tempRating, setTempRating] = useState("");
+const [tempComment, setTempComment] = useState("");
+
   useEffect(() => {
     fetchRideHistory();
   }, [activeTab]); // Refetch when tab changes
@@ -129,14 +132,16 @@ const RideHistory = ({ onBack }) => {
     },
     body: JSON.stringify({
       rideId,
-      rating: rating, // keep fixed for now (fast)
-      comment: comment
+      rating: Number(tempRating), // keep fixed for now (fast)
+      comment: tempComment,
     }),
   });
   setMyReviews(prev => ({
   ...prev,
-  [rideId]: 5
+  [rideId]: Number(tempRating)
 }));
+   setTempComment("");
+   setTempComment("");
 
   alert("Review submitted");
 };
@@ -144,7 +149,7 @@ const RideHistory = ({ onBack }) => {
   const rides = activeTab === 'driver' ? rideHistory.asDriver : rideHistory.asPassenger;
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#0a0a0a] text-white">
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -307,7 +312,7 @@ const RideHistory = ({ onBack }) => {
           </div>
 
           {/* Rating */}
-          {activeTab=='passenger' && (
+    { /*     {activeTab=='passenger' && (
        myReviews[ride.id] ? (
     <div className="text-white">⭐ {myReviews[ride.id]}</div>
   ) : (
@@ -315,6 +320,45 @@ const RideHistory = ({ onBack }) => {
     className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-md text-sm">
       Rate
     </button>
+  )
+)}  */}
+
+       {activeTab === "passenger" && (
+  myReviews[ride.id] ? (
+    <div className="text-white">⭐ {myReviews[ride.id]}</div>
+  ) : (
+    <div className="flex flex-col gap-2">
+      
+      {/* ⭐ rating select */}
+      <select
+        onChange={(e) => setTempRating(e.target.value)}
+        className="text-white rounded px-2 py-1"
+      >
+        <option className='text-black' value="">Rate</option>
+        <option value="1">1 ⭐</option>
+        <option value="2">2 ⭐</option>
+        <option value="3">3 ⭐</option>
+        <option value="4">4 ⭐</option>
+        <option value="5">5 ⭐</option>
+      </select>
+
+      {/* ✍️ comment */}
+      <input
+        type="text"
+        placeholder="Write review..."
+        onChange={(e) => setTempComment(e.target.value)}
+        className="text-white rounded px-2 py-1"
+      />
+
+      {/* submit */}
+      <button
+        onClick={() => submitReview(ride.id)}
+        className="bg-blue-600  text-black px-3 py-1 rounded"
+      >
+        Submit
+      </button>
+
+    </div>
   )
 )}
           

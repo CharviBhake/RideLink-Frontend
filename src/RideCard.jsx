@@ -8,7 +8,7 @@ const RideCard = ({ ride, onChatClick ,userData}) => {
   const badgeColor = isDriver ? 'bg-white text-black' : 'bg-neutral-800 text-white border border-neutral-700';
   const borderHoverColor = isDriver ? 'hover:border-white' : 'hover:border-neutral-600';
   const primaryBtnColor = isDriver ? 'bg-white hover:bg-neutral-200 text-black' : 'bg-neutral-800 hover:bg-neutral-700 text-white';
- 
+  const [loading,setLoading]=useState(false);
   const [showBookings, setShowBookings] = useState(false);
   const [bookings, setBookings] = useState([]);
   const [loadingBookings, setLoadingBookings] = useState(false);
@@ -237,6 +237,7 @@ console.log("userdata id",userData.id);
           )}
         </div>
       )}
+      
 
       {/* Booking Details (for passengers) */}
       {!isDriver && showBookings && bookings.length > 0 && (

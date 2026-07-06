@@ -277,7 +277,7 @@ useEffect(()=>{
             </div>
             <div className="flex-1 min-w-0">
               <div className="text-white font-medium text-sm truncate">
-                {getDisplayName()}
+                {userData.displayUsername}
               </div>
               <div className="text-neutral-400 text-xs">Premium Member</div>
             </div>
@@ -311,7 +311,7 @@ useEffect(()=>{
           </button>
         </div>
 
-        {/* Mobile Menu */}
+      
         {menuOpen && (
           <div className="bg-[#121212] border-t border-neutral-800 p-4">
             <div className="space-y-2">
@@ -357,24 +357,24 @@ useEffect(()=>{
         )}
       </div>
 
-      {/* Main Content */}
+    
       <main className="flex-1 lg:ml-64 pt-20 lg:pt-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {activeView === 'dashboard' && (
             <div>
-              {/* Welcome Section */}
+         
               <div className="mb-8">
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                  {getGreeting()}, {getDisplayName()}
+                  {getGreeting()}, {userData.displayUsername}
                 </h2>
                 <p className="text-neutral-400 text-lg">
                   Where shall your journey take you today?
                 </p>
               </div>
 
-              {/* Action Cards */}
+             
               <div className="grid md:grid-cols-2 gap-6 mb-8">
-                {/* Offer a Ride Card */}
+               
                 <div className="bg-[#1a1a1a] p-8 rounded-2xl border border-neutral-800 hover:border-neutral-700 transition-all">
                   <div className="flex justify-between items-start mb-6">
                     <div className="bg-blue-600 p-3 rounded-xl">
@@ -462,7 +462,7 @@ c
                     Total Savings
                   </div>
                   <div className="text-4xl font-bold text-white">
-                    {savings}
+                    ₹ 1567
 
                   </div>
                 </div>
