@@ -152,7 +152,7 @@ useEffect(()=>{
         },
       });
       const data=await response.json();
-      setTotalRides(data);
+      setTotalRides(data.count ?? data.totalTrips ?? 0);
     }catch(error){
       console.log("error fetching total rides",error);
     }
@@ -277,7 +277,7 @@ useEffect(()=>{
             </div>
             <div className="flex-1 min-w-0">
               <div className="text-white font-medium text-sm truncate">
-                {userData.displayUsername}
+                {userData?.displayUsername || getDisplayName()}
               </div>
               <div className="text-neutral-400 text-xs">Premium Member</div>
             </div>
@@ -365,7 +365,7 @@ useEffect(()=>{
          
               <div className="mb-8">
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                  {getGreeting()}, {userData.displayUsername}
+                  {getGreeting()}, {userData?.displayUsername || getDisplayName()}
                 </h2>
                 <p className="text-neutral-400 text-lg">
                   Where shall your journey take you today?
