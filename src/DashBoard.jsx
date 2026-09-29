@@ -153,9 +153,10 @@ useEffect(()=>{
           "Content-Type":"application/json",
         },
       });
-      const data=await response.json();
-      setTotalRides(data);
-      console.log("total rides",data);
+      if (!response.ok) throw new Error(`total_trips failed (${response.status})`);
+      const data = await response.json();
+      setTotalTrips(typeof data === "number" ? data : 0);
+      
     }catch(error){
       console.log("error fetching total rides",error);
     }
@@ -182,29 +183,40 @@ useEffect(()=>{
   getSavings();
 },[]);
 
-useEffect(()=>{
-  const getRecentCoRiders=async () => {
+
+
+useEffect(() => {
+  const getRecentCoRiders = async () => {
     try {
-      const token=localStorage.getItem("token");
-      const response=await fetch(`${import.meta.env.VITE_API_URL}/user/coRider`, {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/user/coRider`, {
         headers: {
-          Authorization:`Bearer ${token}`,
-          "Content-Type":"application/json",
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       });
-      if(!response.ok) {
-        throw new Error("Failed to fetch co-riders");
+
+      // 404 = no co-riders found, treat as an empty list, not an error
+      if (response.status === 404) {
+        setRecentCoRiders([]);
+        return;
       }
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch co-riders (${response.status})`);
+      }
+
       const data = await response.json();
-      setRecentCoRiders(data);
-      console.log("recent co-riders", data);
-    }catch (error) {
-      console.log("error fetching co-riders", error);
+      // Only accept an array; anything else (like an error object) becomes []
+      setRecentCoRiders(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error("error fetching co-riders", error);
+      setRecentCoRiders([]);   // fallback so the UI shows "No co-riders yet"
     }
   };
+
   getRecentCoRiders();
 }, []);
-
   if (loading) {
     return (
       <div className="min-h-screen bg-[#0d1116] flex items-center justify-center">
