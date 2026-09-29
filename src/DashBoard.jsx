@@ -542,29 +542,31 @@ useEffect(() => {
                     <button className="text-xs text-[#10B981] hover:text-emerald-400">View All</button>
                   </div>
 
-                  {recentCoRiders && recentCoRiders.length > 0 ? (
-                    <div className="space-y-4">
-                      {recentCoRiders.map((coRider) => (
-                        <div key={coRider.user.id} className="flex items-center space-x-3">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-[#10B981] flex items-center justify-center text-white text-sm font-semibold shrink-0">
-                            {coRider.user.displayUsername?.substring(0, 2).toUpperCase() || "?"}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="text-white text-sm font-medium truncate">
-                              {coRider.user.displayUsername}
-                            </div>
-                            <div className="text-neutral-500 text-xs">
-                              Traveled {coRider.tripCount} times • {coRider.user.rating ?? "4.9"} ★
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center py-8">
-                      <p className="text-neutral-500 text-sm">No co-riders yet</p>
-                    </div>
-                  )}
+                 {recentCoRiders.length > 0 ? (
+  <div className="space-y-4">
+    {recentCoRiders
+      .filter((coRider) => coRider?.user)
+      .map((coRider) => (
+        <div key={coRider.user.id} className="flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-[#10B981] flex items-center justify-center text-white text-sm font-semibold shrink-0">
+            {coRider.user.displayUsername?.substring(0, 2).toUpperCase() || "?"}
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-white text-sm font-medium truncate">
+              {coRider.user.displayUsername ?? "Unknown"}
+            </div>
+            <div className="text-neutral-500 text-xs">
+              Traveled {coRider.tripCount ?? 0} times • {coRider.user.rating ?? "4.9"} ★
+            </div>
+          </div>
+        </div>
+      ))}
+  </div>
+) : (
+  <div className="text-center py-8">
+    <p className="text-neutral-500 text-sm">No co-riders yet</p>
+  </div>
+)}
                 </div>
               </div>
             </div>
