@@ -100,13 +100,13 @@ npm run dev
 
 
 🔍 Ride Search
-![AddRide](src/assets/AddRide.png)
-![Search](src/assets/BookRide.png)
+![AddRide](src/assets/AddRide1.png)
+![Search](src/assets/searchRide1.png)
 
 
  💬 Chat
 
-![Chat](.src/assets/chat2.png)
+![Chat](src/assets/chat2.png)
 
 
 
