@@ -7,7 +7,7 @@ const RideCard = ({ ride, onChatClick ,userData}) => {
   const isDriver = ride.driver?.id === userData?.id;
   const badgeColor = isDriver ? 'bg-white text-black' : 'bg-neutral-800 text-white border border-neutral-700';
   const borderHoverColor = isDriver ? 'hover:border-white' : 'hover:border-neutral-600';
-  const primaryBtnColor = isDriver ? 'bg-white hover:bg-neutral-200 text-black' : 'bg-neutral-800 hover:bg-neutral-700 text-white';
+  const primaryBtnColor = isDriver ? 'bg-[#12151d] hover:bg-neutral-200 text-black' : 'bg-neutral-800 hover:bg-neutral-700 text-white';
   const [loading,setLoading]=useState(false);
   const [showBookings, setShowBookings] = useState(false);
   const [bookings, setBookings] = useState([]);
@@ -100,91 +100,122 @@ console.log("userdata id",userData.id);
 
 
   return (
-    <div className={`bg-neutral-900 p-5 rounded-lg border border-neutral-800 ${borderHoverColor} transition-all`}>
+    <div className={`bg-[#161c24] p-5 rounded-lg border border-neutral-800 ${borderHoverColor} transition-all`}>
+      
+      {/* Top row: badge + car info, price on right */}
       <div className="flex items-start justify-between mb-4">
-        <div className="flex-1">
-          <div className="flex items-center gap-2 mb-2">
-            <span className={`${badgeColor} text-xs font-semibold px-3 py-1 rounded-full`}>
-              {isDriver ? "You're Driving" : "You're a Passenger"}
+        <div className="flex items-center gap-3">
+          <span className={`${badgeColor} text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1.5`}>
+            <span className="w-1.5 h-1.5 rounded-full bg-current" />
+            {isDriver ? "You're Driving" : "You're a Passenger"}
+          </span>
+          {isDriver && ride.carModel && (
+            <span className="text-neutral-400 text-sm">
+              {ride.carModel} {ride.carColor && `• ${ride.carColor}`}
             </span>
-          </div>
-          <div className="flex items-center text-white font-semibold text-lg mb-2">
-            <MapPin className="w-5 h-5 mr-2 text-neutral-400" />
-            {ride.startlocation} → {ride.endLocation}
-          </div>
-          <div className="flex items-center gap-4 text-sm text-neutral-400 mb-3">
-            <span className="flex items-center">
-              <Calendar className="w-4 h-4 mr-1" />
-              {ride.rideDate}
-            </span>
-            <span className="flex items-center">
-              <Clock className="w-4 h-4 mr-1" />
-              {ride.departureTime}
-            </span>
-            {isDriver && ride.filledSeats !== undefined && ride.totalSeats && (
-              <span className="flex items-center">
-                <Users className="w-4 h-4 mr-1" />
-                {ride.availableSeats}/{ride.totalSeats} seats available
-              </span>
-            )}
-          </div>
-          {!isDriver && ride.driver && (
-            <div className="flex items-center">
-              <div className="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center mr-3 border border-neutral-700">
-                <User className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <div className="text-white font-medium">{ride.driver.username}</div>
-                <div className="text-xs text-neutral-400">⭐ {ride.driver.rating || 'null'} • {ride.driver.car || 'Car'}</div>
-              </div>
-            </div>
           )}
         </div>
         <div className="text-right">
+          <div className="text-neutral-500 text-xs mb-1">
+            {isDriver ? 'Trip Contribution' : 'Your Fare'}
+          </div>
           <div className="text-2xl font-bold text-white">
             ₹{ride.pricePerSeat || ride.amount || 0}
-          </div>
-          <div className="text-xs text-neutral-400">
-            {isDriver ? 'Total earnings' : 'Your fare'}
+            <span className="text-sm font-normal text-neutral-500">/seat</span>
           </div>
         </div>
       </div>
-      <div className="flex gap-2">
-        <button 
-          onClick={handleChatClick}
-          className={`flex-1 ${primaryBtnColor} py-2 px-4 rounded-lg text-sm font-semibold transition-all`}
-        >
-          💬 Chat
-        </button>
-        {isDriver ? (
-          <button 
-            onClick={fetchBookings}
-            disabled={loadingBookings}
-            className="flex-1 bg-neutral-800 hover:bg-neutral-700 text-white py-2 px-4 rounded-lg text-sm font-semibold transition-all border border-neutral-700 flex items-center justify-center gap-2"
-          >
-            {loadingBookings ? 'Loading...' : (
-              <>
-                Check Bookings
-                {showBookings ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              </>
-            )}
-          </button>
-        ) : (
-          <button 
-            onClick={fetchBookings}
-            disabled={loadingBookings}
-            className={`flex-1 py-2 px-4 rounded-lg text-sm font-semibold transition-all border ${getStatusColor(ride.bookingStatus)}`}
-          >
-            {loadingBookings ? 'Loading...' : (ride.bookingStatus || 'Pending')}
-          </button>
-        )}
+
+      {/* Route row: departure — line — arrival */}
+      <div className="grid grid-cols-3 items-center gap-2 mb-4 pb-4 border-b border-neutral-800">
+        <div>
+          <div className="flex items-center text-[#10B981] text-xs font-medium mb-1">
+            <Clock className="w-3.5 h-4.5 mr-1" />
+            {ride.departureTime} • Departure
+          </div>
+          <div className="text-white font-semibold">{ride.startlocation}</div>
+        </div>
+
+        <div className="flex flex-col items-center">
+          <div className="flex items-center w-full">
+            <span className="w-2 h-2 rounded-full bg-[#10B981] shrink-0" />
+            <span className="flex-1 h-px bg-neutral-700 mx-1" />
+            <span className="w-2 h-2 rounded-full bg-[#10B981] shrink-0" />
+          </div>
+          <div className="text-xs text-neutral-500 mt-1 text-center">{ride.rideDate}</div>
+        </div>
+
+        <div className="text-right">
+          <div className="flex items-center justify-end text-[#10B981] text-xs font-medium mb-1">
+            {ride.arrivalTime && `${ride.arrivalTime} • `}Arrival
+            <MapPin className="w-3.5 h-3.5 ml-1" />
+          </div>
+          <div className="text-white font-semibold">{ride.endLocation}</div>
+        </div>
       </div>
 
-      {/* Bookings List (for drivers) */}
+      {/* Driver info, for passengers */}
+      {!isDriver && ride.driver && (
+        <div className="flex items-center mb-4">
+          <div className="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center mr-3 border border-neutral-700">
+            <User className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <div className="text-white font-medium">{ride.driver.username}</div>
+            <div className="text-xs text-neutral-400">⭐ {ride.driver.rating || 'null'} • {ride.driver.car || 'Car'}</div>
+          </div>
+        </div>
+      )}
+
+      {/* Seats + action buttons row */}
+      <div className="flex items-center justify-between">
+        <div>
+          {isDriver && ride.filledSeats !== undefined && ride.totalSeats && (
+            <div className="flex items-center gap-2">
+              <Users className="w-4 h-4 text-neutral-400" />
+              <span className="text-white text-sm font-medium">
+                {ride.filledSeats} of {ride.totalSeats} seats confirmed
+              </span>
+            </div>
+          )}
+        </div>
+
+        <div className="flex gap-2">
+          <button
+            onClick={handleChatClick}
+            className={`${primaryBtnColor} py-2 px-4 rounded-lg text-sm font-semibold transition-all text-white`}
+          >
+            💬 Chat
+          </button>
+          {isDriver ? (
+            <button
+              onClick={fetchBookings}
+              disabled={loadingBookings}
+              className="bg-[#04d5a5] hover:bg-[neutral-700] text-[#020617] py-2 px-4 rounded-lg text-sm font-semibold transition-all border border-neutral-700 flex items-center justify-center gap-2"
+            >
+              {loadingBookings ? 'Loading...' : (
+                <>
+                  Check Bookings
+                  {showBookings ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                </>
+              )}
+            </button>
+          ) : (
+            <button
+              onClick={fetchBookings}
+              disabled={loadingBookings}
+              className={`py-2 px-4 rounded-lg text-sm font-semibold transition-all border ${getStatusColor(ride.bookingStatus)}`}
+            >
+              {loadingBookings ? 'Loading...' : (ride.bookingStatus || 'Pending')}
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Bookings List (for drivers) — unchanged */}
       {isDriver && showBookings && (
         <div className="mt-4 pt-4 border-t border-neutral-800">
           <h4 className="text-white font-semibold mb-3 text-sm">Passenger Bookings</h4>
-          
           {bookings.length === 0 ? (
             <div className="text-center py-4 text-neutral-500 text-sm">
               No bookings yet
@@ -192,10 +223,7 @@ console.log("userdata id",userData.id);
           ) : (
             <div className="space-y-2">
               {bookings.map((booking) => (
-                <div 
-                  key={booking.id}
-                  className="bg-black rounded-lg p-3 border border-neutral-800"
-                >
+                <div key={booking.id} className="bg-black rounded-lg p-3 border border-neutral-800">
                   <div className="flex items-center justify-between mb-2">
                     <button
                       onClick={() => onViewProfile && onViewProfile(booking.userId)}
@@ -209,12 +237,10 @@ console.log("userdata id",userData.id);
                         <p className="text-xs text-neutral-400">{booking.seats} seat(s)</p>
                       </div>
                     </button>
-                    
                     <span className={`text-xs px-2 py-1 rounded-full border ${getStatusColor(booking.status)}`}>
                       {booking.status}
                     </span>
                   </div>
-
                   {booking.status === 'PENDING' && (
                     <div className="flex gap-2 mt-2">
                       <button
@@ -237,9 +263,8 @@ console.log("userdata id",userData.id);
           )}
         </div>
       )}
-      
 
-      {/* Booking Details (for passengers) */}
+      {/* Booking Details (for passengers) — unchanged */}
       {!isDriver && showBookings && bookings.length > 0 && (
         <div className="mt-4 pt-4 border-t border-neutral-800">
           <div className="bg-black rounded-lg p-3 border border-neutral-800">

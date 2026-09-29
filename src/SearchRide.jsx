@@ -103,7 +103,7 @@ const SearchRide = ({ onBack }) => {
         ← Back to Dashboard
       </button>
       
-      <div className="bg-neutral-900 rounded-lg border border-neutral-800 p-8 max-w-2xl">
+      <div className="bg-[#161c24] rounded-lg border border-neutral-800 p-8 max-w-2xl">
         <h2 className="text-3xl font-bold text-white mb-6">Find a Ride</h2>
         
         <div className="space-y-5">
@@ -116,7 +116,7 @@ const SearchRide = ({ onBack }) => {
                 name="startLocation"
                 value={formData.startLocation}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-3 bg-black border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200 placeholder-neutral-600"
+                className="w-full pl-10 pr-4 py-3 bg-[#F3F4F6] border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200 placeholder-neutral-600"
                 placeholder="Starting location"
               />
             </div>
@@ -131,7 +131,7 @@ const SearchRide = ({ onBack }) => {
                 name="endLocation"
                 value={formData.endLocation}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-3 bg-black border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200 placeholder-neutral-600"
+                className="w-full pl-10 pr-4 py-3 bg-[#F3F4F6] border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200 placeholder-neutral-600"
                 placeholder="Destination"
               />
             </div>
@@ -146,7 +146,7 @@ const SearchRide = ({ onBack }) => {
                 name="rideDate"
                 value={formData.rideDate}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-3 bg-black border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200"
+                className="w-full pl-10 pr-4 py-3 bg-[#F3F4F6] border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200"
               />
             </div>
           </div>

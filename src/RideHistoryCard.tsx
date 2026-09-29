@@ -16,10 +16,10 @@ interface RideCardProps {
 
 export function RideCard({ ride }: RideCardProps) {
   return (
-    <div className="bg-card rounded-lg p-5 border border-border hover:border-primary/50 transition-colors flex flex-col gap-4">
+    <div className="  bg-whiterounded-lg p-5 border border-border hover:border-primary/50 transition-colors flex flex-col gap-4">
       {/* Date and Profit */}
       <div>
-        <div className="flex items-center gap-2 text-muted-foreground text-xs font-semibold mb-1">
+        <div className="flex items-center gap-2 text-muted-foreground text-xs font-semibold mb-1 ">
           <Calendar className="w-3.5 h-3.5" />
           RIDE DATE
         </div>

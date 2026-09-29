@@ -129,7 +129,7 @@ const Profile = ({ onBack }) => {
 
       <div className="max-w-4xl">
         {/* Profile Header */}
-        <div className="bg-neutral-900 rounded-lg border border-neutral-800 p-8 mb-6">
+        <div className="bg-[#161c24] rounded-lg border border-neutral-800 p-8 mb-6">
           <div className="flex items-start justify-between mb-6">
             <div className="flex items-center">
               <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mr-6">
@@ -211,12 +211,12 @@ const Profile = ({ onBack }) => {
         </div>
 
         {/* Personal Information */}
-        <div className="bg-neutral-900 rounded-lg border border-neutral-800 p-8 mb-6">
+        <div className="bg-[#161c24] rounded-lg border border-neutral-800 p-8 mb-6">
           <h3 className="text-2xl font-bold text-white mb-6">Personal Information</h3>
           
           <div className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-neutral-300 mb-2">Full Name</label>
+              <label className="block text-sm font-medium text-white mb-2">Full Name</label>
               <div className="relative">
                 <User className="absolute left-3 top-3 w-5 h-5 text-neutral-500" />
                 <input
@@ -305,7 +305,7 @@ const Profile = ({ onBack }) => {
         </div>
 
         {/* Vehicle Information */}
-        <div className="bg-neutral-900 rounded-lg border border-neutral-800 p-8">
+        <div className="bg-[#161c24] rounded-lg border border-neutral-800 p-8">
           <h3 className="text-2xl font-bold text-white mb-6">Vehicle Information</h3>
           
           <div className="space-y-5">

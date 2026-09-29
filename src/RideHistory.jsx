@@ -149,7 +149,7 @@ const [tempComment, setTempComment] = useState("");
   const rides = activeTab === 'driver' ? rideHistory.asDriver : rideHistory.asPassenger;
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-[#0d1116]  text-white">
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -174,7 +174,7 @@ const [tempComment, setTempComment] = useState("");
               onClick={() => setActiveTab('passenger')}
               className={`px-6 py-2.5 rounded-lg font-medium transition-all ${
                 activeTab === 'passenger'
-                  ? 'bg-purple-600 text-white'
+                  ? 'bg-[#14B8A6] text-white'
                   : 'bg-transparent text-neutral-400 hover:text-white'
               }`}
             >
@@ -186,7 +186,7 @@ const [tempComment, setTempComment] = useState("");
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {/* Cumulative Savings */}
-          <div className="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <div className="bg-[#161c24] rounded-xl p-6 border border-neutral-800">
             <div className="text-xs text-neutral-500 uppercase tracking-wider mb-2">
               Cumulative Savings
             </div>
@@ -199,11 +199,11 @@ const [tempComment, setTempComment] = useState("");
           </div>
 
           {/* Carbon Offset */}
-          <div className="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <div className="bg-[#161c24] rounded-xl p-6 border border-neutral-800">
             <div className="text-xs text-neutral-500 uppercase tracking-wider mb-2">
               Carbon Offset
             </div>
-            <div className="text-4xl font-bold text-blue-500 mb-1">
+            <div className="text-4xl font-bold text-[#14B8A6] mb-1">
               {stats.carbonOffset} kg
             </div>
             <div className="text-sm text-neutral-400">
@@ -212,12 +212,12 @@ const [tempComment, setTempComment] = useState("");
           </div>
 
           {/* Top Destination */}
-          <div className="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <div className="bg-[#161c24] rounded-xl p-6 border border-neutral-800">
             <div className="text-xs text-neutral-500 uppercase tracking-wider mb-2">
               Top Destination
             </div>
             <div className="flex items-center gap-3 mb-1">
-              <div className="w-8 h-8 bg-purple-600 rounded flex items-center justify-center">
+              <div className="w-8 h-8 bg-[#14B8A6] rounded flex items-center justify-center">
                 <span className="text-lg">🏢</span>
               </div>
               <div className="text-xl font-bold text-white">
@@ -250,7 +250,7 @@ const [tempComment, setTempComment] = useState("");
       
       <div
         key={ride.id}
-        className="bg-neutral-900 rounded-xl p-5 border border-neutral-800 hover:border-neutral-700 transition-all aspect-square flex flex-col justify-between"
+        className="bg-[#161c24] rounded-xl p-5 border border-neutral-800 hover:border-neutral-700 transition-all aspect-square flex flex-col justify-between"
       >
         
         {/* 🔝 TOP SECTION */}
@@ -353,7 +353,7 @@ const [tempComment, setTempComment] = useState("");
       {/* submit */}
       <button
         onClick={() => submitReview(ride.id)}
-        className="bg-blue-600  text-black px-3 py-1 rounded"
+        className="bg-[#14B8A6] text-black px-3 py-1 rounded"
       >
         Submit
       </button>
@@ -384,7 +384,7 @@ const [tempComment, setTempComment] = useState("");
     </p>
     <button
       onClick={onBack}
-      className="text-purple-500 hover:text-purple-400 font-semibold flex items-center gap-2 mx-auto"
+      className="text-[#14B8A6] hover:text-[#14B8A6] font-semibold flex items-center gap-2 mx-auto"
     >
       Browse available rides →
     </button>

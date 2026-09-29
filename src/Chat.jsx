@@ -122,7 +122,7 @@ const sendMessage = () => {
 
   return (
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-      <div className="bg-neutral-900 rounded-lg border border-neutral-800 w-full max-w-3xl h-[700px] flex flex-col">
+      <div className="bg-[#0d1116] rounded-lg border border-neutral-800 w-full max-w-3xl h-[700px] flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-neutral-800">
           <div className="flex items-center flex-1">
@@ -202,7 +202,7 @@ const sendMessage = () => {
                   <div
                     className={`max-w-[70%] rounded-lg p-3 ${
                       message.isOwn
-                        ? 'bg-blue-600 text-white'
+                        ? 'bg-[#14B8A6] text-white'
                         : 'bg-neutral-800 text-neutral-200'
                     }`}
                   >
@@ -243,7 +243,7 @@ const sendMessage = () => {
             <button
               onClick={sendMessage}
               disabled={!connected || !inputMessage.trim()}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-[#14B8A6] hover:bg-[#14B8A6]/90 text-white px-6 py-3 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send className="w-5 h-5" />
             </button>

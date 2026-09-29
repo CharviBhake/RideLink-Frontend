@@ -104,210 +104,215 @@ export default function CarpoolAuth() {
     }
   };
 
-  return (
+ return (
     <div className="min-h-screen bg-black flex items-center justify-center p-4">
-      <div className="bg-neutral-900 rounded-lg shadow-2xl border border-neutral-800 w-full max-w-md overflow-hidden">
-        {/* Header */}
-        <div className="bg-black p-8 border-b border-neutral-800">
-          <div className="flex items-center justify-center mb-3">
-            <div className="bg-white p-3 rounded-lg mr-3">
-              <Car className="w-7 h-7 text-black" />
+      <div className="relative w-full max-w-6xl h-[650px] rounded-3xl overflow-hidden shadow-2xl flex">
+        
+        {/* Left side — Welcome panel with abstract shapes */}
+        <div className="hidden md:flex flex-col justify-center w-1/2 p-16 relative bg-gradient-to-br from-neutral-950 via-teal-950 to-neutral-900 overflow-hidden">
+          
+          {/* Abstract shapes */}
+          <div className="absolute top-10 left-16 w-2 h-16 bg-teal-500 rounded-full" />
+          <div className="absolute top-10 left-24 w-2 h-16 bg-teal-500/60 rounded-full" />
+          
+          <div className="absolute top-0 right-0 w-72 h-72 bg-teal-500/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-20 w-96 h-96 bg-teal-400/10 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 right-10 w-40 h-40 border border-teal-500/20 rounded-full" />
+          <div className="absolute bottom-24 left-10 w-24 h-24 border-2 border-teal-500/30 rotate-45" />
+          <div className="absolute top-1/4 left-1/3 w-20 h-20 border border-teal-500/20 rounded-full" />
+
+          {/* Content */}
+          <div className="relative z-10">
+            <div className="bg-teal-500 p-3 rounded-lg mb-8 w-fit">
+              <Car className="w-7 h-7 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-white">
+
+            <h1 className="text-6xl font-bold text-white mb-2">
               RideLink
             </h1>
-          </div>
-          <p className="text-center text-neutral-400 text-sm">A Smart and Quick Carpooling System</p>
-        </div>
-
-        {/* Toggle Buttons */}
-        <div className="flex border-b border-neutral-800">
-          <button
-            onClick={() => {
-              setIsLogin(true);
-              setError('');
-            }}
-            className={`flex-1 py-4 font-semibold transition-all ${
-              isLogin
-                ? 'text-white border-b-2 border-white bg-neutral-800'
-                : 'text-neutral-500 hover:bg-neutral-900'
-            }`}
-          >
-            Login
-          </button>
-          <button
-            onClick={() => {
-              setIsLogin(false);
-              setError('');
-            }}
-            className={`flex-1 py-4 font-semibold transition-all ${
-              !isLogin
-                ? 'text-white border-b-2 border-white bg-neutral-800'
-                : 'text-neutral-500 hover:bg-neutral-900'
-            }`}
-          >
-            Sign Up
-          </button>
-        </div>
-
-        {/* Error Message */}
-        {error && (
-          <div className="mx-8 mt-6 p-3 bg-red-900/20 border border-red-900 rounded-lg">
-            <p className="text-red-400 text-sm">{error}</p>
-          </div>
-        )}
-
-        {/* Form Fields */}
-        <div className="p-8 space-y-5">
-          <div>
-            <label className="block text-sm font-medium text-neutral-300 mb-2">
-              Email
-            </label>
-            <div className="relative">
-              <User className="absolute left-3 top-3 w-5 h-5 text-neutral-500" />
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                onKeyPress={handleKeyPress}
-                className="w-full pl-10 pr-4 py-3 bg-black border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200 placeholder-neutral-600"
-                placeholder="you@example.com"
-                required
-              />
-            </div>
-          </div>
-
-          {!isLogin && (
-            <>
-              <div>
-                <label className="block text-sm font-medium text-neutral-300 mb-2">
-                  Username
-                </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-3 w-5 h-5 text-neutral-500" />
-                  <input
-                    type="text"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    onKeyPress={handleKeyPress}
-                    className="w-full pl-10 pr-4 py-3 bg-black border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200 placeholder-neutral-600"
-                    placeholder="johndoe"
-                    required
-                  />
-                </div>
-              </div>
-            </>
-          )}
-
-          <div>
-            <label className="block text-sm font-medium text-neutral-300 mb-2">
-              Password
-            </label>
-            <div className="relative">
-              <Lock className="absolute left-3 top-3 w-5 h-5 text-neutral-500" />
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                onKeyPress={handleKeyPress}
-                className="w-full pl-10 pr-4 py-3 bg-black border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200 placeholder-neutral-600"
-                placeholder="••••••••"
-                required
-              />
-            </div>
-          </div>
-
-          {!isLogin && (
-            <div>
-              <label className="block text-sm font-medium text-neutral-300 mb-2">
-                Confirm Password
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-3 w-5 h-5 text-neutral-500" />
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  onKeyPress={handleKeyPress}
-                  className="w-full pl-10 pr-4 py-3 bg-black border border-neutral-800 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent text-neutral-200 placeholder-neutral-600"
-                  placeholder="••••••••"
-                  required
-                />
-              </div>
-            </div>
-          )}
-
-          {isLogin && (
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center cursor-pointer">
-                <input type="checkbox" className="mr-2 accent-white" />
-                <span className="text-neutral-400">Remember me</span>
-              </label>
-              <button className="text-white hover:text-neutral-300 transition-colors">
-                Forgot password?
-              </button>
-            </div>
-          )}
-
-          <button
-            onClick={handleSubmit}
-            disabled={loading}
-            className={`w-full bg-white text-black py-3 rounded-lg font-semibold transition-all transform hover:scale-[1.02] ${
-              loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-neutral-200'
-            }`}
-          >
-            {loading ? 'Please wait...' : (isLogin ? 'Login' : 'Create Account')}
-          </button>
-        
-         {/* <button type="button"  onClick={() => alert("BUTTON CLICKED")}  className={`w-full bg-white text-black py-3 rounded-lg font-semibold transition-all transform hover:scale-[1.02] ${
-              loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-neutral-200'
-            }`}
-            > TEST CLICK </button> */}
-
-        </div>
-          
-
-
-        {/* Footer */}
-        <div className="px-8 pb-8 text-center text-sm text-neutral-400">
-          {isLogin ? (
-            <p>
-              Don't have an account?{' '}
-              <button
-                onClick={() => {
-                  setIsLogin(false);
-                  setError('');
-                }}
-                className="text-white font-semibold hover:text-neutral-300 transition-colors"
-              >
-                Sign up now
-              </button>
+            <div className="w-16 h-1 bg-teal-500 my-6" />
+            <p className="text-neutral-400 text-lg max-w-sm">
+              A smart and quick carpooling system — share your journey, offset costs, and move together.
             </p>
-          ) : (
-            <p>
-              Already have an account?{' '}
+          </div>
+        </div>
+
+        {/* Right side — Auth card */}
+        <div className="w-full md:w-1/2 bg-neutral-900/80 backdrop-blur-xl flex flex-col justify-center p-8 md:p-16 relative">
+          
+          <div className="absolute top-1/4 right-0 w-64 h-64 bg-teal-500/10 rounded-full blur-[100px]" />
+
+          <div className="relative z-10">
+            {/* Toggle Buttons */}
+            <div className="flex mb-8 border-b border-white/10">
               <button
                 onClick={() => {
                   setIsLogin(true);
                   setError('');
                 }}
-                className="text-white font-semibold hover:text-neutral-300 transition-colors"
+                className={`flex-1 pb-3 font-semibold text-lg transition-all ${
+                  isLogin
+                    ? 'text-white border-b-2 border-teal-500'
+                    : 'text-neutral-500 hover:text-neutral-300'
+                }`}
               >
-                Login here
+                Login
               </button>
-            </p>
-          )}
-        </div>
+              <button
+                onClick={() => {
+                  setIsLogin(false);
+                  setError('');
+                }}
+                className={`flex-1 pb-3 font-semibold text-lg transition-all ${
+                  !isLogin
+                    ? 'text-white border-b-2 border-teal-500'
+                    : 'text-neutral-500 hover:text-neutral-300'
+                }`}
+              >
+                Sign Up
+              </button>
+            </div>
 
-        {/* Backend Connection Status */}
-        <div className="px-8 pb-4 text-center">
-          <p className="text-xs text-neutral-500">
-            
-          </p>
+            {error && (
+              <div className="mb-6 p-3 bg-red-900/20 border border-red-900 rounded-lg">
+                <p className="text-red-400 text-sm">{error}</p>
+              </div>
+            )}
+
+            <div className="space-y-5">
+              <div>
+                <label className="block text-sm font-medium text-neutral-300 mb-2">
+                  Email
+                </label>
+                <div className="relative">
+                  <User className="absolute left-4 top-3.5 w-5 h-5 text-neutral-500" />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    onKeyPress={handleKeyPress}
+                    className="w-full pl-11 pr-4 py-3 bg-black/40 border border-white/10 rounded-full focus:ring-2 focus:ring-teal-500 focus:border-transparent text-neutral-200 placeholder-neutral-600"
+                    placeholder="you@example.com"
+                    required
+                  />
+                </div>
+              </div>
+
+              {!isLogin && (
+                <div>
+                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                    Username
+                  </label>
+                  <div className="relative">
+                    <Mail className="absolute left-4 top-3.5 w-5 h-5 text-neutral-500" />
+                    <input
+                      type="text"
+                      name="username"
+                      value={formData.username}
+                      onChange={handleChange}
+                      onKeyPress={handleKeyPress}
+                      className="w-full pl-11 pr-4 py-3 bg-black/40 border border-white/10 rounded-full focus:ring-2 focus:ring-teal-500 focus:border-transparent text-neutral-200 placeholder-neutral-600"
+                      placeholder="johndoe"
+                      required
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div>
+                <label className="block text-sm font-medium text-neutral-300 mb-2">
+                  Password
+                </label>
+                <div className="relative">
+                  <Lock className="absolute left-4 top-3.5 w-5 h-5 text-neutral-500" />
+                  <input
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    onKeyPress={handleKeyPress}
+                    className="w-full pl-11 pr-4 py-3 bg-black/40 border border-white/10 rounded-full focus:ring-2 focus:ring-teal-500 focus:border-transparent text-neutral-200 placeholder-neutral-600"
+                    placeholder="••••••••"
+                    required
+                  />
+                </div>
+              </div>
+
+              {!isLogin && (
+                <div>
+                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                    Confirm Password
+                  </label>
+                  <div className="relative">
+                    <Lock className="absolute left-4 top-3.5 w-5 h-5 text-neutral-500" />
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      onKeyPress={handleKeyPress}
+                      className="w-full pl-11 pr-4 py-3 bg-black/40 border border-white/10 rounded-full focus:ring-2 focus:ring-teal-500 focus:border-transparent text-neutral-200 placeholder-neutral-600"
+                      placeholder="••••••••"
+                      required
+                    />
+                  </div>
+                </div>
+              )}
+
+              {isLogin && (
+                <div className="flex items-center justify-between text-sm">
+                  <label className="flex items-center cursor-pointer">
+                    <input type="checkbox" className="mr-2 accent-teal-500" />
+                    <span className="text-neutral-400">Remember me</span>
+                  </label>
+                  <button className="text-teal-400 hover:text-teal-300 transition-colors">
+                    Forgot password?
+                  </button>
+                </div>
+              )}
+
+              <button
+                onClick={handleSubmit}
+                disabled={loading}
+                className={`w-full bg-gradient-to-r from-teal-500 to-teal-400 text-white py-3 rounded-full font-semibold transition-all transform hover:scale-[1.02] ${
+                  loading ? 'opacity-50 cursor-not-allowed' : 'hover:from-teal-400 hover:to-teal-300'
+                }`}
+              >
+                {loading ? 'Please wait...' : (isLogin ? 'Login' : 'Create Account')}
+              </button>
+            </div>
+
+            <div className="mt-6 text-center text-sm text-neutral-400">
+              {isLogin ? (
+                <p>
+                  Don't have an account?{' '}
+                  <button
+                    onClick={() => {
+                      setIsLogin(false);
+                      setError('');
+                    }}
+                    className="text-teal-400 font-semibold hover:text-teal-300 transition-colors"
+                  >
+                    Sign up now
+                  </button>
+                </p>
+              ) : (
+                <p>
+                  Already have an account?{' '}
+                  <button
+                    onClick={() => {
+                      setIsLogin(true);
+                      setError('');
+                    }}
+                    className="text-teal-400 font-semibold hover:text-teal-300 transition-colors"
+                  >
+                    Login here
+                  </button>
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>

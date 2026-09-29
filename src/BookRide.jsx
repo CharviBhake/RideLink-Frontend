@@ -67,7 +67,7 @@ const BookRide = ({ ride, onClose, onSuccess }) => {
           <div className="bg-black rounded-lg p-4 border border-neutral-800 space-y-3">
             <div className="flex items-start justify-between">
               <div className="flex items-center">
-                <MapPin className="w-5 h-5 text-blue-400 mr-2" />
+                <MapPin className="w-5 h-5 text-[#14B8A6] mr-2" />
                 <div>
                   <p className="text-xs text-neutral-400">Route</p>
                   <p className="text-white font-semibold">{ride.from} → {ride.to}</p>

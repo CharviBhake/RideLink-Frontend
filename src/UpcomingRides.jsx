@@ -6,11 +6,8 @@ const UpcomingRides = ({ rides, onNavigate ,userData,onChatClick}) => {
  // console.log("userdata",userData);
   return (
     
-    <div className="bg-neutral-900 rounded-lg border border-neutral-800 p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-2xl font-bold text-white">Upcoming Rides</h3>
-        <span className="text-sm text-neutral-400">Next 7 days</span>
-      </div>
+    <div className="bg-[#161c24] rounded-lg border border-neutral-800 p-6">
+      
 
       {rides && rides.length > 0 ? (
         <div className="space-y-4">
